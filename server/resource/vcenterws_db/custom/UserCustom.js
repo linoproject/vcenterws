@@ -11,12 +11,16 @@ const properties = require('../../../properties.js');
  * SCHEMA DB User
  * 
 	{
-		Name: {
-			type: 'String'
+		infrastrcture: {
+			type: 'String', 
+			required : true
 		},
 		password: {
 			type: 'String', 
 			required : true
+		},
+		role: {
+			type: 'String'
 		},
 		username: {
 			type: 'String', 
@@ -27,26 +31,16 @@ const properties = require('../../../properties.js');
 		
 		//EXTERNAL RELATIONS
 		
-		infrastructure: [{
+		user: {
 			type: Schema.ObjectId,
-			ref : "User"
-		}],
-		user: [{
-			type: Schema.ObjectId,
-			ref : "Infrastructure"
-		}],
+			ref : "Execution"
+		},
 		
 	}
  * 
  * 
  * 
  * Custom APIs
- *
- * Service.login
- *	@param String infrastrutture
- *	@param String password
- *	@param String user
- *	@returns Boolean
  *
  */
 // end documentation
@@ -103,16 +97,3 @@ app['post'](properties.api + '/Users/:id/changePassword', function (req, res) {
 });
 
 
-
-/**
- * UserService.login
- *   @param String infrastrutture
- *   @param String password
- *   @param String user
- *   @returns Boolean
- *
- */
-app['get'](properties.api + '/Userslogin', function(req, res){
-	res.send([]);
-});
-			

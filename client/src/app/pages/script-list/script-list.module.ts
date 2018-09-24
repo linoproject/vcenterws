@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InfrastructureEditComponent } from './infrastructure-edit.component';
-import { InfrastructureEditRoutingModule } from './infrastructure-edit-routing.module';
+import { ScriptListComponent } from './script-list.component';
+import { ScriptListRoutingModule } from './script-list-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -9,12 +9,12 @@ import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    InfrastructureEditRoutingModule,
+    ScriptListRoutingModule,
     FormsModule,
     SharedModule
   ],
   declarations: [
-    InfrastructureEditComponent
+    ScriptListComponent
   ]
 })
-export class InfrastructureEditModule { }
+export class ScriptListModule { }

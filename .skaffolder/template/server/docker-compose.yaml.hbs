@@ -18,7 +18,7 @@ services:
       - "3000:3000"
     # link this service to database service
     links:
-      - database 
+      - "db:database"
 
   # Database service name
   database:

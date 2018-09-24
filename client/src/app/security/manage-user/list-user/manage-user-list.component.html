@@ -18,8 +18,12 @@
                         <input type="text" class="form-control" id="username" [(ngModel)]="search.username" name="username" #username="ngModel">
                     </div>
                     <div class="form-group">
-                        <label for="username">Name</label>
-                        <input type="string" class="form-control" id="name" [(ngModel)]="search.name" name="name" #name="ngModel" >
+                        <label for="username">infrastrcture</label>
+                        <input type="string" class="form-control" id="infrastrcture" [(ngModel)]="search.infrastrcture" name="infrastrcture" #infrastrcture="ngModel" reqired>
+                    </div>
+                    <div class="form-group">
+                        <label for="username">role</label>
+                        <input type="string" class="form-control" id="role" [(ngModel)]="search.role" name="role" #role="ngModel" >
                     </div>
                     <div class="form-group">
                         <label for="title">Role</label>
@@ -37,14 +41,16 @@
     <thead>
         <tr>
             <th>Username</th>
-            <th>Name</th>
+            <th>Infrastrcture</th>
+            <th>Role</th>
             <th>Roles</th>
         </tr>
     </thead>
     <tbody>
         <tr *ngFor="let user of users | search:{'username' : search.username, 'name' : search.name, 'surname' : search.surname, 'mail' : search.mail, 'roles' : search.role }">
             <td><a [routerLink]="['/manage-users/', user._id]">{{user.username}}</a></td>
-            <td>{{user.name }}</td>
+            <td>{{user.infrastrcture }}</td>
+            <td>{{user.role }}</td>
             <td>
                 <span *ngFor="let role of user.roles" class="badge badge-pill badge-primary mr-2">{{role}}</span>
             </td>

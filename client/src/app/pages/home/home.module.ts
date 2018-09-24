@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { InfrastructureListComponent } from './infrastructure-list.component';
-import { InfrastructureListRoutingModule } from './infrastructure-list-routing.module';
+import { HomeComponent } from './home.component';
+import { HomeRoutingModule } from './home-routing.module';
 import { FormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 
@@ -9,12 +9,12 @@ import { SharedModule } from '../../shared/shared.module';
 @NgModule({
   imports: [
     CommonModule,
-    InfrastructureListRoutingModule,
+    HomeRoutingModule,
     FormsModule,
     SharedModule
   ],
   declarations: [
-    InfrastructureListComponent
+    HomeComponent
   ]
 })
-export class InfrastructureListModule { }
+export class HomeModule { }

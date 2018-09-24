@@ -187,7 +187,8 @@ var createUser = function() {
     db_vcenterws_db.User.count().exec(function(err, count) {
         if (count == 0) {
             var admin = new db_vcenterws_db.User({
-                username: 'admin',
+				infrastructure: 'localhost',
+                username: 'testadmin',
                 password: '1a1dc91c907325c69271ddf0c944bc72',
                 roles: ['ADMIN']
             });

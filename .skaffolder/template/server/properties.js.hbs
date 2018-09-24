@@ -6,7 +6,7 @@
 **** END PROPERTIES SKAFFOLDER ****
 module.exports = {
 	{{#each dbs}}
-	{{name}}_dbUrl: 'localhost:27017/{{name}}',
+	{{name}}_dbUrl: 'db:27017/{{name}}',
 	{{/each}}
     publicPath: '../client/dist',
 	port: 3000,

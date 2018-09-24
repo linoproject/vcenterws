@@ -4,7 +4,7 @@ info:
   description: You can obtain JWT token from login API
   version: 0.1
 servers:
-  - url: http://localhost:3000/api
+  - url: http://192.168.131.129:3000/api
     description: Local server for testing
 paths:
   /login:
@@ -77,19 +77,19 @@ paths:
           description: OK
                 
 
-  #-----  Infrastructure  -----
-  /infrastructures/:
+  #-----  Execution  -----
+  /executions/:
     post:
       summary: CRUD ACTION create
       tags:
-        - Infrastructure
+        - Execution
       responses:
         "200":
           description: OK
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Infrastructure"
+                $ref: "#/components/schemas/Execution"
       requestBody:
         required: true
         content:
@@ -97,14 +97,10 @@ paths:
             schema:
               type: object
               properties:
-                release:
-                  type: string
-                vc:
-                  type: string
     get:
       summary: CRUD ACTION list
       tags:
-        - Infrastructure
+        - Execution
       responses:
         "200":
           description: OK
@@ -113,13 +109,13 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Infrastructure"
+                  $ref: "#/components/schemas/Execution"
     
-  /infrastructures/{id}:
+  /executions/{id}:
     delete:
       summary: CRUD ACTION delete
       tags:
-        - Infrastructure
+        - Execution
       parameters:
         - name: id
           in: path
@@ -133,7 +129,7 @@ paths:
     get:
       summary: CRUD ACTION get
       tags:
-        - Infrastructure
+        - Execution
       parameters:
         - name: id
           in: path
@@ -147,11 +143,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Infrastructure"
+                $ref: "#/components/schemas/Execution"
     post:
       summary: CRUD ACTION update
       tags:
-        - Infrastructure
+        - Execution
       parameters:
         - name: id
           in: path
@@ -165,19 +161,41 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Infrastructure"
+                $ref: "#/components/schemas/Execution"
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Infrastructure"
+              $ref: "#/components/schemas/Execution"
     
-  /infrastructures/findByuser/{key}:
+  /executions/findByScript/{key}:
+    get:
+      summary: CRUD ACTION findByScript
+      tags:
+        - Execution
+      parameters:
+        - name: key
+          in: path
+          description: Id della risorsa Script da cercare
+          required: true
+          schema:
+            type: Objectid
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Execution"
+    
+  /executions/findByuser/{key}:
     get:
       summary: CRUD ACTION findByuser
       tags:
-        - Infrastructure
+        - Execution
       parameters:
         - name: key
           in: path
@@ -193,7 +211,199 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: "#/components/schemas/Infrastructure"
+                  $ref: "#/components/schemas/Execution"
+    
+  #-----  Results  -----
+  /results/:
+    post:
+      summary: CRUD ACTION create
+      tags:
+        - Results
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                data:
+                  type: string
+                path:
+                  type: string
+    get:
+      summary: CRUD ACTION list
+      tags:
+        - Results
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Results"
+    
+  /results/{id}:
+    delete:
+      summary: CRUD ACTION delete
+      tags:
+        - Results
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      summary: CRUD ACTION get
+      tags:
+        - Results
+      parameters:
+        - name: id
+          in: path
+          description: Id 
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
+    post:
+      summary: CRUD ACTION update
+      tags:
+        - Results
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Results"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Results"
+    
+  #-----  Script  -----
+  /scripts/:
+    post:
+      summary: CRUD ACTION create
+      tags:
+        - Script
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Script"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Name:
+                  type: string
+                Path:
+                  type: string
+    get:
+      summary: CRUD ACTION list
+      tags:
+        - Script
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Script"
+    
+  /scripts/{id}:
+    delete:
+      summary: CRUD ACTION delete
+      tags:
+        - Script
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    get:
+      summary: CRUD ACTION get
+      tags:
+        - Script
+      parameters:
+        - name: id
+          in: path
+          description: Id 
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Script"
+    post:
+      summary: CRUD ACTION update
+      tags:
+        - Script
+      parameters:
+        - name: id
+          in: path
+          description: Id
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Script"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Script"
     
   #-----  User  -----
   /Users/:
@@ -215,9 +425,11 @@ paths:
             schema:
               type: object
               properties:
-                Name:
+                infrastrcture:
                   type: string
                 password:
+                  type: string
+                role:
                   type: string
                 username:
                   type: string
@@ -292,34 +504,6 @@ paths:
           application/json:
             schema:
               $ref: "#/components/schemas/User"
-    
-  /Userslogin:
-    get:
-      summary: 
-      tags:
-        - User
-      parameters:
-        - name: infrastrutture
-          in: path
-          description: 
-          required: true
-          schema:
-            type: string
-        - name: password
-          in: path
-          description: 
-          required: true
-          schema:
-            type: string
-        - name: user
-          in: path
-          description: 
-          required: true
-          schema:
-            type: string
-      responses:
-        "200":
-          description: OK
     
     
   #-----  User  -----
@@ -462,13 +646,33 @@ components:
         - password
         
 
-    Infrastructure:
+    Execution:
       properties:
         _id:
           type: string
-        release:
+      required:
+        -  _id
+      
+    
+    Results:
+      properties:
+        _id:
           type: string
-        vc:
+        data:
+          type: string
+        path:
+          type: string
+      required:
+        -  _id
+      
+    
+    Script:
+      properties:
+        _id:
+          type: string
+        Name:
+          type: string
+        Path:
           type: string
       required:
         -  _id
@@ -478,14 +682,17 @@ components:
       properties:
         _id:
           type: string
-        Name:
+        infrastrcture:
           type: string
         password:
+          type: string
+        role:
           type: string
         username:
           type: string
       required:
         -  _id
+        - infrastrcture
         - password
         - username
       

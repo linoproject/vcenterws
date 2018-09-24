@@ -29,7 +29,9 @@ connectDB = function()  {
 
 			require('./vcenterws_db_schema.js');
 
-			require('../resource/vcenterws_db/Infrastructure.js');
+			require('../resource/vcenterws_db/Execution.js');
+			require('../resource/vcenterws_db/Results.js');
+			require('../resource/vcenterws_db/Script.js');
 			require('../resource/vcenterws_db/User.js');
 			
 			//END IMPORT RESOURCE

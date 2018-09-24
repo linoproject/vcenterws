@@ -8,13 +8,13 @@ const properties = require('../../../properties.js');
 
 // start documentation
 /*
- * SCHEMA DB Infrastructure
+ * SCHEMA DB Script
  * 
 	{
-		release: {
+		Name: {
 			type: 'String'
 		},
-		vc: {
+		Path: {
 			type: 'String'
 		},
 		//RELATIONS
@@ -22,14 +22,10 @@ const properties = require('../../../properties.js');
 		
 		//EXTERNAL RELATIONS
 		
-		infrastructure: [{
+		Script: {
 			type: Schema.ObjectId,
-			ref : "User"
-		}],
-		user: [{
-			type: Schema.ObjectId,
-			ref : "Infrastructure"
-		}],
+			ref : "Execution"
+		},
 		
 	}
  * 

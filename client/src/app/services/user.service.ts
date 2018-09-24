@@ -11,12 +11,6 @@ import { UserBaseService } from './base/user.base.service';
 /**
  * Custom APIs
  *
- * Service.login
- *	@param String infrastrutture
- *	@param String password
- *	@param String user
- *	@returns Boolean
- *
  */
 // end documentation
 

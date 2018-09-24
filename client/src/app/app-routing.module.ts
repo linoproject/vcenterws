@@ -5,9 +5,10 @@ import { CanActivate, RouterModule, Routes } from '@angular/router';
 /* START MY VIEWS IMPORT */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
 import { HomeComponent} from './pages/home/home.component';
-import { InfrastructureEditComponent} from './pages/infrastructure-edit/infrastructure-edit.component';
-import { InfrastructureListComponent} from './pages/infrastructure-list/infrastructure-list.component';
-import { LoginComponent} from './pages/login/login.component';
+import { ScriptEditComponent} from './pages/script-edit/script-edit.component';
+import { ScriptListComponent} from './pages/script-list/script-list.component';
+import { UserEditComponent} from './pages/user-edit/user-edit.component';
+import { UserListComponent} from './pages/user-list/user-list.component';
 
 /* END MY VIEWS IMPORT */
 
@@ -26,9 +27,11 @@ const routes: Routes = [
 
     /* START MY VIEWS */
 
-    { path: 'infrastructures/:id',  loadChildren: './pages/infrastructure-edit/infrastructure-edit.module#InfrastructureEditModule' , canActivate: [AuthGuard] },
-    { path: 'infrastructures',  loadChildren: './pages/infrastructure-list/infrastructure-list.module#InfrastructureListModule' , canActivate: [AuthGuard] },
-    { path: 'login',  loadChildren: './pages/login/login.module#LoginModule'  },
+    { path: 'home',  loadChildren: './pages/home/home.module#HomeModule' , canActivate: [AuthGuard] },
+    { path: 'scripts/:id',  loadChildren: './pages/script-edit/script-edit.module#ScriptEditModule' , canActivate: [AuthGuard] },
+    { path: 'scripts',  loadChildren: './pages/script-list/script-list.module#ScriptListModule' , canActivate: [AuthGuard] },
+    { path: 'users/:id',  loadChildren: './pages/user-edit/user-edit.module#UserEditModule' , canActivate: [AuthGuard] },
+    { path: 'users',  loadChildren: './pages/user-list/user-list.module#UserListModule' , canActivate: [AuthGuard] },
 
  /* END MY VIEWS */
 

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { InfrastructureEditComponent } from './infrastructure-edit.component';
+import { ScriptListComponent } from './script-list.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: InfrastructureEditComponent
+    component: ScriptListComponent
   },
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class InfrastructureEditRoutingModule { }
+export class ScriptListRoutingModule { }

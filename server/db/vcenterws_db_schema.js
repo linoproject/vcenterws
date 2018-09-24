@@ -30,28 +30,64 @@ const db_vcenterws_db = [];
 
 
  /**
-  * Infrastructure
+  * Execution
   */
-db_vcenterws_db_schema.Infrastructure = new mongoose.Schema({
-	release: {
-		type: 'String'
-	},
-	vc: {
-		type: 'String'
-	},
+db_vcenterws_db_schema.Execution = new mongoose.Schema({
 	//RELATIONS
-	user: [{
+	Script: {
+		type: Schema.ObjectId,
+		ref : "Script"
+	},
+	user: {
 		type: Schema.ObjectId,
 		ref : "User"
-	}],
+	},
 	
 	
 	//EXTERNAL RELATIONS
 	/*
-	infrastructure: [{
+	*/
+});
+
+
+ /**
+  * Results
+  */
+db_vcenterws_db_schema.Results = new mongoose.Schema({
+	data: {
+		type: 'String'
+	},
+	path: {
+		type: 'String'
+	},
+	//RELATIONS
+	
+	
+	//EXTERNAL RELATIONS
+	/*
+	*/
+});
+
+
+ /**
+  * Script
+  */
+db_vcenterws_db_schema.Script = new mongoose.Schema({
+	Name: {
+		type: 'String'
+	},
+	Path: {
+		type: 'String'
+	},
+	//RELATIONS
+	
+	
+	//EXTERNAL RELATIONS
+	/*
+	Script: {
 		type: Schema.ObjectId,
-		ref : "User"
-	}],
+		ref : "Execution"
+	},
 	*/
 });
 
@@ -60,30 +96,30 @@ db_vcenterws_db_schema.Infrastructure = new mongoose.Schema({
   * User
   */
 db_vcenterws_db_schema.User = new mongoose.Schema({
-	Name: {
-		type: 'String'
+	infrastructure: {
+		type: 'String', 
+		required : true
 	},
 	password: {
 		type: 'String', 
 		required : true
+	},
+	role: {
+		type: 'String'
 	},
 	username: {
 		type: 'String', 
 		required : true
 	},
 	//RELATIONS
-	infrastructure: [{
-		type: Schema.ObjectId,
-		ref : "Infrastructure"
-	}],
 	
 	
 	//EXTERNAL RELATIONS
 	/*
-	user: [{
+	user: {
 		type: Schema.ObjectId,
-		ref : "Infrastructure"
-	}],
+		ref : "Execution"
+	},
 	*/
 });
 
@@ -95,7 +131,9 @@ var vcenterws_db_model = require('./vcenterws_db_crud.js');
 
 // Declare mongoose model
 
-db_vcenterws_db.Infrastructure = vcenterws_db_model.connection.model('Infrastructure', db_vcenterws_db_schema.Infrastructure );
+db_vcenterws_db.Execution = vcenterws_db_model.connection.model('Execution', db_vcenterws_db_schema.Execution );
+db_vcenterws_db.Results = vcenterws_db_model.connection.model('Results', db_vcenterws_db_schema.Results );
+db_vcenterws_db.Script = vcenterws_db_model.connection.model('Script', db_vcenterws_db_schema.Script );
 db_vcenterws_db.User = vcenterws_db_model.connection.model('User', db_vcenterws_db_schema.User );
 
 module.exports = db_vcenterws_db;

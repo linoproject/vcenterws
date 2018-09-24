@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 /* START MY SERVICES IMPORTS*/
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
-import { InfrastructureService } from './services/infrastructure.service';
+import { ExecutionService } from './services/execution.service';
+import { ResultsService } from './services/results.service';
+import { ScriptService } from './services/script.service';
 import { UserService } from './services/user.service';
 
 /* END MY SERVICES IMPORTS*/
@@ -16,7 +18,9 @@ import { AuthInterceptor } from './security/auth.interceptor';
   providers: [
     /* START PROVIDERS */
 // Do not edit this comment content, it will be overwritten in next Skaffolder generation
-    InfrastructureService,
+    ExecutionService,
+    ResultsService,
+    ScriptService,
     UserService,
  /* END PROVIDERS */
 
