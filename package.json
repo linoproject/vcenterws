@@ -15,7 +15,10 @@
   "license": "MIT",
   "dependencies": {
     "concurrently": "^3.2.0",
-    "copy-webpack-plugin": "^4.0.1"
+    "copy-webpack-plugin": "^4.0.1",
+    "node-vsphere-soap": "0.0.2-5",
+    "vsphere": "0.0.1",
+    "vsphere-connect": "^1.1.2"
   },
   "repository": {}
 }

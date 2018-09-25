@@ -24,8 +24,10 @@ paths:
                 password:
                   type: string
               example:   # Sample object
-                username: admin
-                password: 1a1dc91c907325c69271ddf0c944bc72
+                "infrastructure": "10.128.15.20"
+                "username": "administrator@vsphere.local"
+                "password": "SuperPass01!"
+                
       responses:
         '200':
           description: OK
@@ -36,6 +38,25 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
+  /logout:
+    get:
+       summary: Logout API
+       tags:
+        - Security
+       parameters:
+        - name: token
+          in: query
+          description: Token
+          required: true
+          schema:
+            type: string
+       responses:
+        '200':
+          application/json:
+           schema:
+                $ref: "#/components/schemas/User"
+          
+          
   /verifyToken:
     post:
       summary: Verify token API

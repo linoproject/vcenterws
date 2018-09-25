@@ -11,6 +11,8 @@ services:
     ports:
       - "3000:3000"
     # link this service to database service
+    volumes:
+      - '/home/jan/sk-vcenter/vcenterws:/app'
     links:
       - "database:db"
 

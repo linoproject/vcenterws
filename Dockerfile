@@ -20,8 +20,14 @@ RUN cd ./client && npm install
 # Expose the port the app runs in
 EXPOSE 3000
 
+# Add vsphere api
+RUN npm install node-vsphere-soap --save
+
 # Link current folder to container
 ADD . /app/
 
 # Serve the app
-CMD ["npm", "start"]
+#CMD ["npm", "start"]
+RUN touch /var/log/app.log
+
+CMD ["tail","-f", "/var/log/app.log"]

@@ -39,13 +39,15 @@ app.all(properties.api + '/*', function(req, res, next) {
                 } else {
                     // Get user
                     getUser(decodedUser.username, decodedUser.password, function(user) {
-                        if (hasRole(roles, decodedUser)) {
+						req.user = decodedUser;
+                        next();
+                        /*if (hasRole(roles, decodedUser)) {
                             req.user = decodedUser;
                             next();
                         } else {
                             logger.info(decodedUser, " not authorized for " + req.path);
                             res.status(401).send("Not authorized");
-                        }
+                        }*/
                     });
                 }
             });
@@ -53,10 +55,11 @@ app.all(properties.api + '/*', function(req, res, next) {
     }
 });
 
+
 /**
  * Login API
  */
-app.post(properties.api + '/login', function(req, res, md5pwd) {
+/*app.post(properties.api + '/login', function(req, res, md5pwd) {
     const db_vcenterws_db = require('../db/vcenterws_db_schema.js');
     // Get parameters from post request
     let params = req.body;
@@ -76,6 +79,85 @@ app.post(properties.api + '/login', function(req, res, md5pwd) {
             res.send({ message: "Not Authoized" });
         }
     });
+});*/
+
+
+/**
+{
+  "infrastructure": "10.128.15.20",
+  "username": "administrator@vsphere.local",
+  "password": "SuperPass01!"
+}
+**/
+/**
+ * Login API
+ */
+app.post(properties.api + '/login', function(req, res, md5pwd) {
+    const db_vcenterws_db = require('../db/vcenterws_db_schema.js');
+	var Vsphere = require('node-vsphere-soap');
+    // Get parameters from post request
+    let params = req.body;
+    
+	// Try login with vcenter
+	try{
+		var vc = new Vsphere.Client(params.infrastructure, params.username, params.password, false);
+		vc.once("ready", function(){ 
+		// Find user 
+	
+			getInfrastructureUser(params.infrastructure, params.username, function(user){
+				if (user) {
+					console.log ("User exist");
+					
+				}else{
+					console.log ("Adding user");
+					var user = new db_vcenterws_db.User({
+						infrastructure: params.infrastructure,
+						username: params.username,
+						password: params.password,
+						roles: ['ADMIN']
+					});
+					user.save(function(err) {
+						if (err) throw err;
+					});
+									
+				}
+				
+				var token = jwt.sign(user, properties.tokenSecret, {
+					expiresIn: 10800 //3 hours
+				}); 
+				
+				user.token = token;
+				user.vc_token = vc.authCookie;
+				console.log(user);
+				res.send(user);
+			});
+			
+			console.log("connected w cookie");
+			console.log(vc.authCookie);
+			
+		})
+		.once("error", function(){
+			console.log("NOT connected");
+			res.send({ message: "Not Authoized" });
+			
+		});
+		
+	}catch(e){
+		console.log("NOT connected");
+		console.log(e);
+		res.send({ message: e });
+	}
+	
+	
+	
+});
+
+app.get(properties.api + '/logout', function(req, res) {
+	
+	if (req.query.token){
+		// TODO Logout here including vcenter
+	}	
+	res.send({ message: "Logged out" });
 });
 
 /**
@@ -179,6 +261,25 @@ var getUser = function(username, password, callback) {
 };
 
 /**
+ * Get user from database
+ * @param {*} username 
+ * @param {*} infrastructure 
+ * @param {*} callback 
+ */
+var getInfrastructureUser = function(infrastructure, username, callback) {
+
+    // CUSTOMIZE THIS FUNCTION 
+    // if you want to change login method
+
+	
+    db_vcenterws_db.User.findOne({ infrastructure: infrastructure, username: username }).lean().exec(function(err, user) {
+        if (user)
+            user.password = undefined;
+        callback(user);
+    });
+};
+
+/**
  * Create ADMIN user if is the first start
  */
 var createUser = function() {
@@ -198,4 +299,5 @@ var createUser = function() {
         };
     });
 };
+
 exports.createUser = createUser;
